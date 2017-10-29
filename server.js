@@ -19,7 +19,7 @@ app.use(morgan('combined'));
 
 const MM_TOKEN = 'abc';
 
-app.all('/', (req, res) => {
+app.all('/mmcmd', (req, res) => {
   const body = req.method === 'POST' ? req.body : req.query;
 
   if (body.token !== MM_TOKEN) {
