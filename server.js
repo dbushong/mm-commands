@@ -17,12 +17,14 @@ function httpErr(res, code, msg) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
-const MM_TOKEN = 'abc';
+if (!process.env.MM_CMD_TOKEN) {
+  throw new Error('Must run with MM_CMD_TOKEN environment variable');
+}
 
-app.all('/mmcmd', (req, res) => {
+app.all('/', (req, res) => {
   const body = req.method === 'POST' ? req.body : req.query;
 
-  if (body.token !== MM_TOKEN) {
+  if (body.token !== process.env.MM_CMD_TOKEN) {
     httpErr(res, 403, 'bad token');
     return;
   }
