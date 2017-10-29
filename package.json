@@ -15,5 +15,9 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
     "prettier": "^1.7.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbushong/mm-commands.git"
   }
 }
