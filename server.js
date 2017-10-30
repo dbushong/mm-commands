@@ -6,6 +6,7 @@ const morgan = require('morgan');
 
 const commands = {
   food: require('./commands/food'),
+  quote: require('./commands/quote'),
 };
 
 function httpErr(res, code, msg) {
@@ -21,10 +22,12 @@ if (!process.env.MM_CMD_TOKEN) {
   throw new Error('Must run with MM_CMD_TOKEN environment variable');
 }
 
+const validTokens = process.env.MM_CMD_TOKEN.split(',');
+
 app.all('/', (req, res) => {
   const body = req.method === 'POST' ? req.body : req.query;
 
-  if (body.token !== process.env.MM_CMD_TOKEN) {
+  if (validTokens.indexOf(body.token) === -1) {
     httpErr(res, 403, 'bad token');
     return;
   }

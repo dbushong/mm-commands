@@ -32,8 +32,7 @@ function ordersMsg(state, user_id) {
   return msg;
 }
 
-module.exports = (body, res) => {
-  const { channel_id, text, user_id, user_name } = body;
+module.exports = ({ channel_id, text, user_id, user_name }, res) => {
 
   function ephemeral(msg) {
     res.json({ response_type: 'ephemeral', text: msg });
