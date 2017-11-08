@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const commands = {
   food: require('./commands/food'),
   quote: require('./commands/quote'),
+  tfc: require('./commands/tfc'),
 };
 
 const tokens = require('./tokens');

@@ -29,3 +29,7 @@ Group food ordering management helper
 ### `/quote`
 
 Easier pasted-multiline-quoter
+
+### `/tfc`
+
+Give a They Fight Crime synopsis
