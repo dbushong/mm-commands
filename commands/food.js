@@ -57,7 +57,7 @@ module.exports = ({ channel_id, text, user_id, user_name }, res) => {
     ephemeral(`\`\`\`json\n${JSON.stringify(body, null, 2)}\n\`\`\`\n`);
   } else {
     if (!state || state.created_at < (Date.now() - SESSION_TTL)) {
-      const m = text.match(/^(@\S+\s+)+(\S.+)/);
+      const m = text.match(/^((?:@\S+\s+)+)(\S.+)/);
       if (!m) {
         ephemeral(START_USAGE);
       } else {
