@@ -9,6 +9,8 @@ const commands = {
   quote: require('./commands/quote'),
 };
 
+const tokens = require('./tokens');
+
 function httpErr(res, code, msg) {
   res.status = code;
   res.setHeader('Content-Type', 'text/plain');
@@ -18,19 +20,8 @@ function httpErr(res, code, msg) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
-if (!process.env.MM_CMD_TOKEN) {
-  throw new Error('Must run with MM_CMD_TOKEN environment variable');
-}
-
-const validTokens = process.env.MM_CMD_TOKEN.split(',');
-
 app.all('/', (req, res) => {
   const body = req.method === 'POST' ? req.body : req.query;
-
-  if (validTokens.indexOf(body.token) === -1) {
-    httpErr(res, 403, 'bad token');
-    return;
-  }
 
   const m = body.command.match(/^\/(\S+)/);
   if (!m) {
@@ -42,6 +33,11 @@ app.all('/', (req, res) => {
 
   if (!command) {
     httpErr(res, 400, `unhandled command ${m[1]}`);
+    return;
+  }
+
+  if (body.token !== tokens[m[1]]) {
+    httpErr(res, 403, 'bad token');
     return;
   }
 
