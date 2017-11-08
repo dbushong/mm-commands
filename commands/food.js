@@ -4,7 +4,8 @@ const channels = {};
 
 const SESSION_TTL = 5 * 24 * 60 * 60 * 1000;
 
-const START_USAGE = "There is no active food order.  To start one:\n`/food @person1 @person2 @person3 https://restaurant.example.com/menu`";
+const START_USAGE =
+  'There is no active food order.  To start one:\n`/food @person1 @person2 @person3 https://restaurant.example.com/menu`';
 
 function uniq(arr) {
   const seen = {};
@@ -16,8 +17,8 @@ function uniq(arr) {
 }
 
 function ordersMsg(state, user_id) {
-  let msg =
-    `${state.orders.length}/${state.requested.length} orders complete:\n`;
+  let msg = `${state.orders.length}/${state.requested
+    .length} orders complete:\n`;
   state.orders.forEach(order => {
     msg += `* @${order.user_name} ${order.order}\n`;
   });
@@ -33,7 +34,6 @@ function ordersMsg(state, user_id) {
 }
 
 module.exports = ({ channel_id, text, user_id, user_name }, res) => {
-
   function ephemeral(msg) {
     res.json({ response_type: 'ephemeral', text: msg });
   }
@@ -54,9 +54,9 @@ module.exports = ({ channel_id, text, user_id, user_name }, res) => {
     delete channels[channel_id];
     ephemeral('Order session cleared.');
   } else if (text === 'debug') {
-    ephemeral(`\`\`\`json\n${JSON.stringify(body, null, 2)}\n\`\`\`\n`);
+    ephemeral(`\`\`\`json\n${JSON.stringify(channels, null, 2)}\n\`\`\`\n`);
   } else {
-    if (!state || state.created_at < (Date.now() - SESSION_TTL)) {
+    if (!state || state.created_at < Date.now() - SESSION_TTL) {
       const m = text.match(/^((?:@\S+\s+)+)(\S.+)/);
       if (!m) {
         ephemeral(START_USAGE);
@@ -65,10 +65,17 @@ module.exports = ({ channel_id, text, user_id, user_name }, res) => {
         state = channels[channel_id] = {
           restaurant,
           created_at: Date.now(),
-          requested: uniq(requested.replace(/@/g, '').trim().split(/\s+/)),
+          requested: uniq(
+            requested
+              .replace(/@/g, '')
+              .trim()
+              .split(/\s+/)
+          ),
           orders: [],
         };
-        inChannel(`Food orders requested from ${requested}.\nRestaurant is: ${restaurant}\nTo place your order: \`/food blah blah blah\``);
+        inChannel(
+          `Food orders requested from ${requested}.\nRestaurant is: ${restaurant}\nTo place your order: \`/food blah blah blah\``
+        );
       }
     } else {
       if (state.requested.indexOf(user_name) === -1) {
