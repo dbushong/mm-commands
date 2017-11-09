@@ -8,6 +8,7 @@ const commands = {
   food: require('./commands/food'),
   quote: require('./commands/quote'),
   tfc: require('./commands/tfc'),
+  math: require('./commands/math'),
 };
 
 const tokens = require('./tokens');
@@ -37,9 +38,14 @@ app.all('/', (req, res) => {
     return;
   }
 
-  if (body.token !== tokens[m[1]]) {
-    httpErr(res, 403, 'bad token');
-    return;
+  const token = tokens[m[1]];
+  if (body.token !== token) {
+    if (token) {
+      console.log(`no token for command ${command} - allowing anyway`);
+    } else {
+      httpErr(res, 403, 'bad token');
+      return;
+    }
   }
 
   res.setHeader('Content-Type', 'application/json');
