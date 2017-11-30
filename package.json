@@ -10,6 +10,7 @@
     "body-parser": "^1.18.2",
     "cowsay": "^1.2.1",
     "express": "^4.16.2",
+    "figlet": "^1.2.0",
     "mathjs": "^3.16.5",
     "morgan": "^1.9.0"
   },

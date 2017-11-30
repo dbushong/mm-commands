@@ -10,6 +10,7 @@ const commands = {
   tfc: require('./commands/tfc'),
   math: require('./commands/math'),
   cow: require('./commands/cow'),
+  figlet: require('./commands/figlet'),
 };
 
 const tokens = require('./tokens');
@@ -20,10 +21,19 @@ function httpErr(res, code, msg) {
   res.end(msg);
 }
 
+function cmdErr(res, err) {
+  console.error(err);
+  res.json({
+    response_type: 'ephemeral',
+    text: `⚠ ${err.message}`,
+  });
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
+app.use((err, req, res, next) => { cmdErr(res, err); });
 
-app.all('/', (req, res) => {
+app.all('/', (req, res, next) => {
   const body = req.method === 'POST' ? req.body : req.query;
 
   const m = body.command.match(/^\/(\S+)/);
@@ -51,7 +61,11 @@ app.all('/', (req, res) => {
 
   res.setHeader('Content-Type', 'application/json');
 
-  command(body, res);
+  try {
+    command(body, res, next);
+  } catch (err) {
+    cmdErr(res, err);
+  }
 });
 
 const port = Number(process.env.PORT || 0xf00d);

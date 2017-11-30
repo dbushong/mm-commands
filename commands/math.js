@@ -15,15 +15,8 @@ module.exports = ({ text, user_name }, res) => {
     addrPfx = `@${user_name} `;
   }
 
-  try {
-    res.json({
-      response_type,
-      text: `${addrPfx}\`${mathPfx}${math.eval(text)}\``,
-    });
-  } catch (err) {
-    res.json({
-      response_type: 'ephemeral',
-      text: `⚠ ${err.message}`,
-    });
-  }
+  res.json({
+    response_type,
+    text: `${addrPfx}\`${mathPfx}${math.eval(text)}\``,
+  });
 };
