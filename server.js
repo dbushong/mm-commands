@@ -9,6 +9,7 @@ const commands = {
   quote: require('./commands/quote'),
   tfc: require('./commands/tfc'),
   math: require('./commands/math'),
+  cow: require('./commands/cow'),
 };
 
 const tokens = require('./tokens');
