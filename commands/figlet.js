@@ -19,7 +19,9 @@ module.exports = ({ text }, res, next) => {
   const m = text.match(/^(?:font\s+(?:"([^"]+)"|(\S+))\s+)?(.+)/);
 
   if (!m) {
-    throw new Error('usage: `/figlet font list` or `/figlet font Poison some message` or `/figlet font "S Blood" some message`');
+    throw new Error(
+      'usage: `/figlet font list` or `/figlet font Poison some message` or `/figlet font "S Blood" some message`'
+    );
   }
 
   const [, quotedFont, oneWordFont, msg] = m;

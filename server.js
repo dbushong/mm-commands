@@ -31,7 +31,10 @@ function cmdErr(res, err) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
-app.use((err, req, res, next) => { cmdErr(res, err); });
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  cmdErr(res, err);
+});
 
 app.all('/', (req, res, next) => {
   const body = req.method === 'POST' ? req.body : req.query;
