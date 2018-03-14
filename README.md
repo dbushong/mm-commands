@@ -33,3 +33,19 @@ Easier pasted-multiline-quoter
 ### `/tfc`
 
 Give a They Fight Crime synopsis
+
+### `/cow`
+
+Cow say/think things
+
+### `/figlet`
+
+Figlet things
+
+### `/flip`
+
+Flip a table or words
+
+### `/math`
+
+Perform math & unit conversion

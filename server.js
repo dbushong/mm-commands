@@ -11,6 +11,7 @@ const commands = {
   math: require('./commands/math'),
   cow: require('./commands/cow'),
   figlet: require('./commands/figlet'),
+  flip: require('./commands/flip'),
 };
 
 const tokens = require('./tokens');
