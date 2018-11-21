@@ -17,8 +17,9 @@ function uniq(arr) {
 }
 
 function ordersMsg(state, user_id) {
-  let msg = `${state.orders.length}/${state.requested
-    .length} orders complete:\n`;
+  let msg = `${state.orders.length}/${
+    state.requested.length
+  } orders complete:\n`;
   state.orders.forEach(order => {
     msg += `* @${order.user_name} ${order.order}\n`;
   });

@@ -16,8 +16,8 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "eslint": "^4.13.1",
-    "eslint-config-groupon": "^5.2.0",
+    "eslint": "^5.9.0",
+    "eslint-config-groupon": "^6.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-prettier": "^2.4.0",

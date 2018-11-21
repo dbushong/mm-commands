@@ -14,7 +14,10 @@ const commands = {
   flip: require('./commands/flip'),
 };
 
+// eslint-disable-next-line import/no-unresolved
 const tokens = require('./tokens');
+
+/* eslint-disable no-console */
 
 function httpErr(res, code, msg) {
   res.status = code;
